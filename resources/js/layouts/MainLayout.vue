@@ -1,8 +1,8 @@
 <template>
   <div class="app-main-layout">
-    <navbar />
-    <sidebar />
-    <main class="app-content">
+    <navbar @clickHiden="isOpen = !isOpen" />
+    <sidebar :status="isOpen ? 'hiden' : 'open'" />
+    <main class="app-content" :class="{ full: isOpen }">
       <div class="app-page">
         <router-view />
       </div>
@@ -16,6 +16,12 @@ import Navbar from "../components/Navbar.vue";
 import Sidebar from "../components/Sidebar.vue";
 import AddRecord from "../components/AddRecord.vue";
 export default {
+  data() {
+    return {
+      isOpen: false,
+    };
+  },
+
   components: {
     Navbar,
     Sidebar,

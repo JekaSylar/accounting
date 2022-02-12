@@ -15,9 +15,6 @@ use App\Http\Controllers\Api\RegisterController;
 |
 */
 
-Route::post('/register', 'API\AuthController@register');
-Route::post('/login', 'API\AuthController@login');
-
-Route::middleware('auth:api')->group(function () {
-    Route::post('/logout', 'API\AuthController@logout');
-});
+Route::post('login', [UserController::class, 'login']);
+Route::post('register', [UserController::class, 'register']);
+Route::post('logout', [UserController::class, 'logout'])->middleware('auth:sanctum');

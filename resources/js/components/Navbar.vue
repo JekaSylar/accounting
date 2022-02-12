@@ -2,10 +2,10 @@
   <nav class="navbar orange lighten-1">
     <div class="nav-wrapper">
       <div class="navbar-left">
-        <a href="#">
+        <a href="#" @click.prevent="$emit('clickHiden')">
           <i class="material-icons black-text">dehaze</i>
         </a>
-        <span class="black-text">{{ date }}</span>
+        <span class="black-text">{{ dataFilter }}</span>
       </div>
 
       <ul class="right hide-on-small-and-down">
@@ -14,6 +14,7 @@
             class="dropdown-trigger black-text"
             href="#"
             data-target="dropdown"
+            ref="dropdown"
           >
             USER NAME
             <i class="material-icons right">arrow_drop_down</i>
@@ -21,9 +22,9 @@
 
           <ul id="dropdown" class="dropdown-content">
             <li>
-              <a href="#" class="black-text">
+              <router-link to="/profile" class="black-text">
                 <i class="material-icons">account_circle</i>Профиль
-              </a>
+              </router-link>
             </li>
             <li class="divider" tabindex="-1"></li>
             <li>
@@ -44,7 +45,8 @@ import moment from "moment";
 export default {
   data() {
     return {
-      date: moment().format("MMMM Do YYYY, h:mm:ss a"),
+      date: new Date(),
+      interval: null,
       dropdown: null,
     };
   },
@@ -52,14 +54,27 @@ export default {
     this.dropdown = M.Dropdown.init(this.$refs.dropdown, {
       constrainWidth: false,
     });
+    this.interval = setInterval(() => {
+      this.date = new Date();
+    }, 1000);
   },
   beforeDestroy() {
+    clearInterval(this.interval);
     if (this.dropdown && this.dropdown.destroy) {
       this.dropdown.destroy();
     }
   },
+
+  computed: {
+    dataFilter() {
+      return moment(this.date).format("DD.MM.YYYY HH:mm:ss");
+    },
+  },
 };
 </script>
 
-<style>
+<style scoped>
+.dropdown-content {
+  top: 64px !important;
+}
 </style>

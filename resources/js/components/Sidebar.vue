@@ -1,7 +1,7 @@
 <template>
-  <ul class="sidenav app-sidenav open">
+  <ul class="sidenav app-sidenav" :class="status">
     <li v-for="link in links" :key="link.url">
-      <router-link :to="link.url" class="waves-effect waves-orange pointer">{{
+      <router-link :to="link.url" class="waves-orange pointer">{{
         link.title
       }}</router-link>
     </li>
@@ -10,6 +10,8 @@
 
 <script>
 export default {
+  props: ["status"],
+
   data() {
     return {
       links: [
@@ -24,5 +26,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.router-link-active {
+  background-color: #ffa726 !important;
+}
 </style>

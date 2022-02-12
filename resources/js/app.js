@@ -12,6 +12,7 @@ import App from './App.vue'
 import router from "./router";
 import store from "./store";
 import '../css/index.css';
+import 'materialize-css/dist/js/materialize.min'
 
 
 
@@ -34,6 +35,8 @@ const app = createApp({
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 //app.component('example-component', require('./components/ExampleComponent.vue').default);
+
+
 app.use(router).mount("#app");
  /**
 * Next, we will create a fresh Vue application instance and attach it to
